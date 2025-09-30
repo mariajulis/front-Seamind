@@ -58,10 +58,10 @@ export const Register = () => {
 
   return (
     <div className="min-h-[calc(100vh-80px)] flex items-center justify-center p-4 bg-gray-100">
-      <Card className="w-full max-w-md rounded-2xl p-8 bg-gray-200">
+      <Card className="w-full max-w-md rounded-2xl p-8 bg-gray-50 shadow-md">
         {/* Título */}
         <div className="text-center mb-6">
-          <h1 className="text-2xl font-medium text-gray-900">Criar Conta</h1>
+          <h1 className="text-2xl font-semibold text-gray-900">Criar Conta</h1>
         </div>
 
         {/* Abas de seleção de usuário */}
@@ -69,10 +69,10 @@ export const Register = () => {
           <button
             type="button"
             onClick={() => setUserType("paciente")}
-            className={`px-4 py-2 font-semibold rounded-full ${
+            className={`px-4 py-2 font-semibold rounded-full transition-colors ${
               userType === "paciente"
-                ? "bg-blue-300 text-black"
-                : "text-black/70"
+                ? "bg-blue-200 text-gray-900"
+                : "text-gray-700 hover:text-gray-900"
             }`}
           >
             PACIENTE
@@ -80,10 +80,10 @@ export const Register = () => {
           <button
             type="button"
             onClick={() => setUserType("psicologo")}
-            className={`px-4 py-2 font-semibold rounded-full ${
+            className={`px-4 py-2 font-semibold rounded-full transition-colors ${
               userType === "psicologo"
-                ? "bg-blue-300 text-black"
-                : "text-black/70"
+                ? "bg-blue-200 text-gray-900"
+                : "text-gray-700 hover:text-gray-900"
             }`}
           >
             PSICÓLOGO
@@ -91,7 +91,7 @@ export const Register = () => {
         </div>
 
         {/* Formulário */}
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4 text-gray-900">
           <Input
             label="NOME COMPLETO"
             value={formData.name}
@@ -130,6 +130,17 @@ export const Register = () => {
             className="bg-white rounded-md"
           />
 
+          {/* TELEFONE (logo abaixo do confirmar senha) */}
+          <Input
+            label="TELEFONE"
+            type="tel"
+            value={formData.phone}
+            onChange={handleInputChange("phone")}
+            placeholder="(99) 99999-9999"
+            required
+            className="bg-white rounded-md"
+          />
+
           {userType === "paciente" && (
             <Input
               label="DATA DE NASCIMENTO"
@@ -165,7 +176,7 @@ export const Register = () => {
           <Button
             type="submit"
             loading={loading}
-            className="w-full rounded-full bg-black text-white hover:bg-gray-800"
+            className="w-full rounded-full bg-gray-900 text-white hover:bg-gray-800 transition-colors"
           >
             Criar Conta
           </Button>
@@ -173,7 +184,7 @@ export const Register = () => {
 
         {/* Link para login */}
         <div className="mt-6 text-center space-y-2">
-          <p className="text-black/70">Já possui conta?</p>
+          <p className="text-gray-700">Já possui conta?</p>
           <Link
             to="/login"
             className="text-blue-600 font-bold hover:underline"
@@ -185,4 +196,3 @@ export const Register = () => {
     </div>
   );
 };
-

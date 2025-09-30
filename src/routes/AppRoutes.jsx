@@ -27,6 +27,7 @@ import { NotFound } from '../pages/NotFound';
 import { Solicitacoes } from '../pages/Solicitacoes';
 import { Pacientes } from '../pages/Pacientes'
 import { PacienteDetalhes } from '../pages/PacienteDetalhe';
+import { SessaoDetalhes } from '../pages/SessaoDetalhes';
  
 /* ==============================
    Componente de rota protegida
@@ -59,7 +60,7 @@ const PublicRoute = ({ children }) => {
   return (
     <div className="min-h-screen">
       <PublicNavbar /> {/* Navbar pública */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="">
         {children} {/* Conteúdo da página pública */}
       </main>
     </div>

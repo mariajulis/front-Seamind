@@ -89,8 +89,8 @@ export const DashboardPsicologo = () => {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold text-blue-700">Dashboard</h1>
-        <p className="text-blue-600">Bem-vindo, {user.name}</p>
+        <h1 className="text-3xl font-bold text-dark">Dashboard</h1>
+        <p className="text-dark">Bem-vindo, {user.name}</p>
       </div>
 
       {/* Mensagem para psicólogos novos */}

@@ -50,7 +50,7 @@ const PatientInfo = ({ patient }) => {
 
                                 {href ? (<a href={href} className="font-semibold text-dark/60 hover:text-light transition-colors">{value}</a>) :
                                     isStatus ? (
-                                        <span className={`inline-block px-2 py-1 rounded-full text-xs font-medium ${value === 'ativo' || value === 'em tratamento' ? 'bg-green-400 text-dark/70' : 'bg-red-400 text-dark/70'}`}>
+                                        <span className={`inline-block px-2 py-1 rounded-full text-xs font-medium ${value === 'ativo' || value === 'em tratamento' ? 'bg-green-400 text-dark/70' : 'bg-blue-400 text-white'}`}>
                                             {value}
                                         </span>
                                     ) : (

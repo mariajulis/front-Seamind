@@ -98,10 +98,10 @@ export const Solicitacoes = () => {
                 transition={{ duration: 0.6 }}
                 className="flex items-center gap-3"
             >
-                <div className="bg-cyan-700 p-3 rounded-xl shadow-md">
+                <div className="bg-dark p-3 rounded-xl shadow-md">
                     <Bell className="w-8 h-8 text-white" />
                 </div>
-                <h1 className="text-3xl font-extrabold text-gray-800 tracking-tight">
+                <h1 className="text-3xl font-extrabold text-dark tracking-tight">
                     Solicitações
                 </h1>
             </motion.div>
@@ -138,7 +138,7 @@ export const Solicitacoes = () => {
                             {/* Cabeçalho */}
                             <div className="flex justify-between items-center">
                                 <div className="flex items-center gap-3">
-                                    <div className="w-12 h-12 rounded-full bg-[#2563eb] flex items-center justify-center shadow-sm">
+                                    <div className="w-12 h-12 rounded-full bg-dark flex items-center justify-center shadow-sm">
                                         <User className="w-6 h-6 text-white" />
                                     </div>
                                     <div>
@@ -186,7 +186,7 @@ export const Solicitacoes = () => {
                                     <Button
                                         onClick={() => handleAcceptRequest(request.id, request)}
                                         loading={processingRequests.has(request.id)}
-                                        className="w-full rounded-xl bg-[#2563eb] text-white hover:bg-[#1e4fd9] flex items-center justify-center gap-2"
+                                        className="w-full rounded-xl bg-dark text-white hover:bg-dark flex items-center justify-center gap-2"
                                     >
                                         <CheckCircle className="w-4 h-4" />
                                         Aceitar
