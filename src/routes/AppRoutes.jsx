@@ -14,13 +14,13 @@ import { Home } from '../pages/Home';
 import { About } from '../pages/About';
 import { Login } from '../pages/Login';
 import { Register } from '../pages/Register';
- 
+ /*
 // Páginas protegidas (apenas para usuários autenticados)
 import { DashboardPsicologo } from '../pages/DashboardPsicologo';
 import { DashboardPaciente } from '../pages/DashboardPaciente';
 import { Agendamento } from '../pages/Agendamentos';
 import { Relatorios } from '../pages/Relatorios';
- 
+ */
 import { ChatIA } from '../pages/ChatIA';
  
 import { NotFound } from '../pages/NotFound';
@@ -28,6 +28,7 @@ import { Solicitacoes } from '../pages/Solicitacoes';
 import { Pacientes } from '../pages/Pacientes'
 import { PacienteDetalhes } from '../pages/PacienteDetalhe';
 import { SessaoDetalhes } from '../pages/SessaoDetalhes';
+
  
 /* ==============================
    Componente de rota protegida
@@ -114,52 +115,7 @@ export const AppRoutes = () => {
         {/* ==============================
            Rotas Protegidas
            ============================== */}
-        <Route path="/dashboard" element={
-          <ProtectedRoute>
-            <Dashboard /> {/* Escolhe dashboard de psicólogo ou paciente */}
-          </ProtectedRoute>
-        } />
        
-        <Route path="/agendamento" element={
-          <ProtectedRoute>
-            <Agendamento />
-          </ProtectedRoute>
-        } />
-       
-       
-       
-        <Route path="/chat-ia" element={
-          <ProtectedRoute>
-            <ChatIA />
-          </ProtectedRoute>
-        } />
-       
-        <Route path="/relatorios" element={
-          <ProtectedRoute>
-            <Relatorios />
-          </ProtectedRoute>
-        } />
-              <Route path="/solicitacoes" element={
-          <ProtectedRoute>
-            <Solicitacoes />
-          </ProtectedRoute>
-        } />
-        <Route path="/pacientes" element={
-          <ProtectedRoute>
-            <Pacientes/>
-          </ProtectedRoute>
-        } />
-        <Route path="/pacientes/:id" element={
-          <ProtectedRoute>
-            <PacienteDetalhes/>
-          </ProtectedRoute>
-        } />
-        <Route path="/sessao/:sessionId" element={
-          <ProtectedRoute>
-            <SessaoDetalhes />
-          </ProtectedRoute>
-        } />
-
         {/* ==============================
            Rota para página 404
            ============================== */}

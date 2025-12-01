@@ -48,12 +48,7 @@ export const About = () => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.7 }}
           >
-            <Button
-              aria-label="Saiba mais sobre o projeto Seamind"
-              className="bg-gray-900 hover:bg-gray-800 text-white px-6 py-3 rounded-xl shadow-lg transition focus:outline-none focus:ring-2 focus:ring-gray-700"
-            >
-              Saiba mais
-            </Button>
+          
           </motion.div>
         </div>
 

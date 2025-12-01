@@ -1,7 +1,6 @@
 
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
-import { mockApi } from "../services/mockApi";
 import { Button } from "../components/Button";
 import { LoadingSpinner } from "../components/LoadingSpinner";
 import { Bell, User, Clock, CheckCircle, X } from "lucide-react";

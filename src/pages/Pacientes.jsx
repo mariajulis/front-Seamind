@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { mockApi } from '../services/mockApi';
 import { LoadingSpinner } from '../components/LoadingSpinner';
 import { Users, Phone, Calendar } from 'lucide-react';
 import { motion } from 'framer-motion';
