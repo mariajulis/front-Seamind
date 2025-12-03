@@ -1,107 +1,112 @@
-import { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { LoadingSpinner } from '../components/LoadingSpinner';
-import { Users, Phone, Calendar } from 'lucide-react';
-import { motion } from 'framer-motion';
-
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { patientService } from "../services/apiServices";
+import { Card } from "../components/Card";
+import { LoadingSpinner } from "../components/LoadingSpinner";
+import { Users, User, Mail, Phone } from "lucide-react";
+ 
 export const Pacientes = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [patients, setPatients] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  const loadPatients = useCallback(async () => {
+ 
+  const loadPatients = async () => {
     setLoading(true);
     try {
-      const data = await mockApi.getPatients(user.id);
+      const data = await patientService.getPatients(user.id);
+      console.log("Pacientes carregados:", data);
       setPatients(data);
     } catch (error) {
-      console.error('Erro ao carregar pacientes:', error);
+      console.error("Erro ao carregar pacientes:", error);
     } finally {
       setLoading(false);
     }
-  }, [user.id]);
-
+  };
+ 
   useEffect(() => {
     loadPatients();
-  }, [loadPatients]);
-
+  }, [user.id]);
+ 
   useEffect(() => {
     const handleFocus = () => loadPatients();
-    window.addEventListener('focus', handleFocus);
-    return () => window.removeEventListener('focus', handleFocus);
-  }, [loadPatients]);
-
+    window.addEventListener("focus", handleFocus);
+    return () => window.removeEventListener("focus", handleFocus);
+  }, []);
+ 
   if (loading) return <LoadingSpinner size="lg" />;
-
+ 
   return (
     <div className="space-y-6">
-      {/* Cabeçalho */}
-      <h1 className="text-2xl font-bold text-center text-dark">Meus pacientes</h1>
-
-      {/* Lista */}
+      <div className="flex items-center gap-3">
+        <Users className="w-8 h-8 text-dark" />
+        <h1 className="text-3xl font-bold text-white">
+          Meus Pacientes: {patients.length} Pacientes
+        </h1>
+      </div>
+ 
       <div className="grid gap-6">
         {patients.length === 0 ? (
-          <div className="text-center py-12 bg-gray-100 rounded-lg shadow">
-            <Users className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-gray-700">Nenhum paciente encontrado</h3>
-            <p className="text-gray-500">Seus pacientes aparecerão aqui conforme os agendamentos.</p>
-          </div>
+          <Card className="text-center py-12">
+            <Users className="w-16 h-16 text-dark/30 mx-auto mb-4" />
+            <h3 className="text-xl font-semibold text-dark mb-2">
+              Nenhum paciente encontrado
+            </h3>
+            <p className="text-dark/70">
+              Conforme seus agendamentos, os seus pacientes irão aparecer aqui!
+            </p>
+          </Card>
         ) : (
-          patients.map((patient, index) => (
-            <motion.div
+          patients.map((patient) => (
+            <Card
               key={patient.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              className="rounded-lg bg-[#c1d6dd] p-6 shadow-md"
+              onClick={() => navigate(`/pacientes/${patient.id}`)}
+              className="cursor-pointer hover:shadow-lg transition-shadow bg-white rounded-full"
             >
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {/* Nome e idade */}
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2">
-                    <Users className="w-5 h-5 text-gray-700" />
-                    <span className="font-semibold text-gray-800">{patient.name}</span>
+              <div className="space-y-3">
+                {/* Cabeçalho */}
+                <div className="flex items-center gap-4">
+                  <div className="w-16 h-16 bg-gradient-to-br from-light to-accent rounded-full flex items-center justify-center">
+                    <User className="w-8 h-8 text-white" />
                   </div>
-                  {patient.age && (
-                    <div className="flex items-center gap-2">
-                      <Calendar className="w-5 h-5 text-gray-700" />
-                      <span className="text-gray-700">Idade {patient.age} anos</span>
-                    </div>
-                  )}
-                  {patient.phone && (
-                    <div className="flex items-center gap-2">
-                      <Phone className="w-5 h-5 text-gray-700" />
-                      <span className="text-gray-700">{patient.phone}</span>
-                    </div>
-                  )}
+                  <div>
+                    <h3 className="text-dark text-xl font-semibold">
+                      {patient.name}
+                    </h3>
+                    <p className="text-sm text-dark/60">Paciente: #{patient.id}</p>
+                  </div>
                 </div>
-
-                {/* Data de nascimento + botão */}
-                <div className="flex flex-col justify-between items-start sm:items-end">
-                  {patient.birthDate && (
-                    <div className="flex items-center gap-2">
-                      <Calendar className="w-5 h-5 text-gray-700" />
-                      <span className="text-gray-700">
-                        Data de Nascimento {patient.birthDate}
-                      </span>
-                    </div>
-                  )}
-                  <button
-                    onClick={() => navigate(`/pacientes/${patient.id}`)}
-                    className="mt-4 sm:mt-0 bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300 transition"
-                  >
-                    mais informações do paciente
-                  </button>
+ 
+                {/* Informações extras em grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3 text-dark/80 mt-4">
+                  <div><strong>Idade:</strong> {patient.age} anos</div>
+                  <div><strong>Total de Sessões:</strong> {patient.totalSessions}</div>
+                  <div><strong>Data de Nascimento:</strong> {patient.birthDate}</div>
+                  <div>
+                    <strong>Status:</strong>{" "}
+                    <span
+                      className={
+                        patient.status === "Ativo"
+                          ? "text-green-600 font-semibold"
+                          : "text-blue-600 font-semibold"
+                      }
+                    >
+                      {patient.status}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Phone className="w-4 h-4 text-accent" />Telefone:{patient.phone}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Mail className="w-4 h-4 text-accent" /> E-mail:{patient.email}
+                  </div>
                 </div>
               </div>
-            </motion.div>
+            </Card>
           ))
         )}
       </div>
     </div>
   );
 };
-0
-8

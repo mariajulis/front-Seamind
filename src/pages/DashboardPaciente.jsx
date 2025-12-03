@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { appointmentsService, requestService, psychologistsService} from '../services/apiService';
+import { requestService,} from '../services/apiServices';
 import { Card } from '../components/Card';
 import { Button } from '../components/Button';
 import { LoadingSpinner } from '../components/LoadingSpinner';

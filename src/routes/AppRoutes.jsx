@@ -1,33 +1,35 @@
 // Importação de rotas do React Router
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
- 
+
 // Importa contexto de autenticação
 import { useAuth } from '../context/AuthContext';
- 
+
 // Componentes reutilizáveis
 import { Sidebar } from '../components/Sidebar';
 import { PublicNavbar } from '../components/PublicNavbar';
 import { LoadingSpinner } from '../components/LoadingSpinner';
- 
+
 // Páginas públicas
 import { Home } from '../pages/Home';
 import { About } from '../pages/About';
 import { Login } from '../pages/Login';
 import { Register } from '../pages/Register';
- /*
+/*
 // Páginas protegidas (apenas para usuários autenticados)
-import { DashboardPsicologo } from '../pages/DashboardPsicologo';
-import { DashboardPaciente } from '../pages/DashboardPaciente';
-import { Agendamento } from '../pages/Agendamentos';
+
 import { Relatorios } from '../pages/Relatorios';
- */
+*/
 import { ChatIA } from '../pages/ChatIA';
- 
+import { DashboardPaciente } from '../pages/DashboardPaciente';
+import { DashboardPsicologo } from '../pages/DashboardPsicologo';
 import { NotFound } from '../pages/NotFound';
 import { Solicitacoes } from '../pages/Solicitacoes';
 import { Pacientes } from '../pages/Pacientes'
+import { Agendamento } from '../pages/Agendamentos';
+/*
 import { PacienteDetalhes } from '../pages/PacienteDetalhe';
 import { SessaoDetalhes } from '../pages/SessaoDetalhes';
+import { Agendamento } from '../pages/Agendamentos';
 
  
 /* ==============================
@@ -35,10 +37,10 @@ import { SessaoDetalhes } from '../pages/SessaoDetalhes';
    ============================== */
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth(); // Obtém usuário e estado de carregamento
- 
+
   if (loading) return <LoadingSpinner size="lg" />; // Mostra spinner enquanto carrega
   if (!user) return <Navigate to="/login" replace />; // Redireciona não autenticados para login
- 
+
   return (
     <div className="min-h-screen flex">
       <Sidebar /> {/* Sidebar lateral sempre visível */}
@@ -48,16 +50,16 @@ const ProtectedRoute = ({ children }) => {
     </div>
   );
 };
- 
+
 /* ==============================
    Componente de rota pública
    ============================== */
 const PublicRoute = ({ children }) => {
   const { user, loading } = useAuth(); // Obtém usuário e estado de carregamento
- 
+
   if (loading) return <LoadingSpinner size="lg" />; // Mostra spinner enquanto carrega
   if (user) return <Navigate to="/dashboard" replace />; // Redireciona usuário logado para dashboard
- 
+
   return (
     <div className="min-h-screen">
       <PublicNavbar /> {/* Navbar pública */}
@@ -67,7 +69,7 @@ const PublicRoute = ({ children }) => {
     </div>
   );
 };
- 
+
 /* ==============================
    Componente Dashboard condicional
    ============================== */
@@ -76,7 +78,7 @@ const Dashboard = () => {
   // Retorna dashboard específico baseado no tipo do usuário
   return user?.type === 'psicologo' ? <DashboardPsicologo /> : <DashboardPaciente />;
 };
- 
+
 /* ==============================
    Configuração de rotas da aplicação
    ============================== */
@@ -84,7 +86,7 @@ export const AppRoutes = () => {
   return (
     <Router>
       <Routes>
- 
+
         {/* ==============================
            Rotas Públicas
            ============================== */}
@@ -93,29 +95,62 @@ export const AppRoutes = () => {
             <Home />
           </PublicRoute>
         } />
-       
+
         <Route path="/about" element={
           <PublicRoute>
             <About />
           </PublicRoute>
         } />
-       
+
         <Route path="/login" element={
           <PublicRoute>
             <Login />
           </PublicRoute>
         } />
-       
+
         <Route path="/register" element={
           <PublicRoute>
             <Register />
           </PublicRoute>
         } />
-       
+
         {/* ==============================
            Rotas Protegidas
            ============================== */}
-       
+        <Route path="/dashboard" element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/pacientes" element={
+          <ProtectedRoute>
+            <Pacientes />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/chat-ia" element={
+          <ProtectedRoute>
+            <ChatIA />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/agendamento" element={
+          <ProtectedRoute>
+            <Agendamento />
+          </ProtectedRoute>
+
+        } />
+
+
+        <Route path="/solicitacoes" element={
+          <ProtectedRoute>
+            <Solicitacoes />
+          </ProtectedRoute>
+
+        } />
+
+
         {/* ==============================
            Rota para página 404
            ============================== */}
@@ -124,4 +159,3 @@ export const AppRoutes = () => {
     </Router>
   );
 };
- 

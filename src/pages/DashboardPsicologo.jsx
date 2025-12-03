@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { appointmentService, patientService, requestService } from '../services/apiService';
+import { appointmentService, patientService, requestService } from '../services/apiServices';
 import { Card } from '../components/Card';
 import { LoadingSpinner } from '../components/LoadingSpinner';
 import { Calendar, Users, Bell , CheckCheck} from 'lucide-react';
